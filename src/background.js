@@ -16,26 +16,26 @@
  */
 "use strict";
 
-browser.browserAction.onClicked.addListener(async (tab, event) => {
-  function query_string(query) {
-    return Object.keys(query)
-      .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(query[k]))
-      .join("&");
-  }
+function query_url(base, params) {
+  let url = new URL(base);
+  url.search = new URLSearchParams(params);
+  return url.href;
+}
 
+browser.browserAction.onClicked.addListener(async (tab, event) => {
   let url;
   if(event.button === 0) {
-    url = `org-protocol://store-link?${ query_string({
+    url = query_url('org-protocol://store-link', {
       url: tab.url,
       title: tab.title,
-    }) }`;
+    });
   } else {
-    url = `org-protocol://capture?${ query_string({
+    url = query_url('org-protocol://capture', {
       template: 'P',
       url: tab.url,
       title: tab.title,
       body: await browser.tabs.sendMessage(tab.id, {}),
-    }) }`;
+    });
   }
 
   browser.tabs.update({url});
