@@ -19,3 +19,13 @@
 browser.runtime.onMessage.addListener(async () => {
   return window.getSelection().toString();
 });
+
+function reportFeeds() {
+  const feeds = Array.prototype.map.call(document.querySelectorAll(
+    'link[rel="alternate"]:is([type*="rss" i], [type*="atom" i], [type*="feed" i])'
+  ), (elem) => elem.href);
+  browser.runtime.sendMessage({type: "feeds", feeds: feeds});
+}
+
+window.addEventListener("pageshow", reportFeeds);
+reportFeeds();

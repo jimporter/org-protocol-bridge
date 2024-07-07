@@ -40,3 +40,24 @@ browser.browserAction.onClicked.addListener(async (tab, event) => {
 
   browser.tabs.update({url});
 });
+
+var allFeeds = new Map();
+
+browser.pageAction.onClicked.addListener((tab, event) => {
+  const url = query_url('org-protocol://capture', {
+    template: 'F',
+    url: allFeeds.get(tab.id)[0],
+  });
+  browser.tabs.update({url});
+});
+
+browser.runtime.onMessage.addListener(async (message, sender) => {
+  if(message.feeds.length) {
+    browser.pageAction.show(sender.tab.id);
+    allFeeds.set(sender.tab.id, message.feeds);
+  }
+});
+
+browser.tabs.onRemoved.addEventListener((tabId, info) => {
+  allFeeds.delete(tabId);
+});

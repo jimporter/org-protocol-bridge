@@ -22,5 +22,10 @@
       "light": "icons/toolbar-light.svg",
       "size": 16
     }]
+  },
+
+  "page_action": {
+    "default_icon": "icons/rss.svg",
+    "default_title": "RSS feeds"
   }
 }
