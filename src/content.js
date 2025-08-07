@@ -23,7 +23,7 @@ browser.runtime.onMessage.addListener(async () => {
 function reportFeeds() {
   const feeds = Array.prototype.map.call(document.querySelectorAll(
     'link[rel="alternate"]:is([type*="rss" i], [type*="atom" i], [type*="feed" i])'
-  ), (elem) => elem.href);
+  ), (elem) => {return {url: elem.href, title: elem.title}; });
   browser.runtime.sendMessage({type: "feeds", feeds: feeds});
 }
 

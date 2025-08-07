@@ -44,9 +44,11 @@ browser.browserAction.onClicked.addListener(async (tab, event) => {
 var allFeeds = new Map();
 
 browser.pageAction.onClicked.addListener((tab, event) => {
+  let feed = allFeeds.get(tab.id)[0];
   const url = query_url('org-protocol://capture', {
     template: 'F',
-    url: allFeeds.get(tab.id)[0],
+    url: feed.url,
+    title: feed.title,
   });
   browser.tabs.update({url});
 });
