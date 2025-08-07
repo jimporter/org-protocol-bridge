@@ -34,7 +34,7 @@ browser.browserAction.onClicked.addListener(async (tab, event) => {
       template: 'P',
       url: tab.url,
       title: tab.title,
-      body: await browser.tabs.sendMessage(tab.id, {}),
+      body: await browser.tabs.sendMessage(tab.id, {}).catch((e) => ''),
     });
   }
 
