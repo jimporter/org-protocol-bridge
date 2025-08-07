@@ -58,6 +58,6 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   }
 });
 
-browser.tabs.onRemoved.addEventListener((tabId, info) => {
+browser.tabs.onRemoved.addListener((tabId, info) => {
   allFeeds.delete(tabId);
 });
