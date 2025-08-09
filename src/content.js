@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * org-protocol-bridge. If not, see <https://www.gnu.org/licenses/>.
  */
-"use strict";
+'use strict';
 
 browser.runtime.onMessage.addListener(async () => {
   return window.getSelection().toString();
@@ -24,8 +24,8 @@ function reportFeeds() {
   const feeds = Array.prototype.map.call(document.querySelectorAll(
     'link[rel="alternate"]:is([type*="rss" i], [type*="atom" i], [type*="feed" i])'
   ), (elem) => {return {url: elem.href, title: elem.title}; });
-  browser.runtime.sendMessage({type: "feeds", feeds: feeds});
+  browser.runtime.sendMessage({type: 'feeds', feeds: feeds});
 }
 
-window.addEventListener("pageshow", reportFeeds);
+window.addEventListener('pageshow', reportFeeds);
 reportFeeds();

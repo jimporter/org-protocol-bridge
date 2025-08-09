@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * org-protocol-bridge. If not, see <https://www.gnu.org/licenses/>.
  */
-"use strict";
+'use strict';
 
 function query_url(base, params) {
   let url = new URL(base);
